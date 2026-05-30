@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Offers - Zain{% endblock %}
+
+{% block content %}
+<div class="py-5">
+  <div class="text-center mb-5">
+    <p class="text-uppercase fw-bold mb-2" style="letter-spacing: 0.25em; color: #8b7bbf;">Premium offers</p>
+    <h1 class="display-6 fw-semibold" style="color: #2b1a47;">Explore Zain offers built for speed and value</h1>
+    <p class="text-muted mt-3 mx-auto" style="max-width: 680px; color: #5a5567;">Choose the right plan for your lifestyle with exclusive bundles that combine data, voice and priority support in one premium package.</p>
+  </div>
+
+  <div class="row gy-4">
+    {% for offer in offers %}
+      <div class="col-12 col-md-6 col-xl-3">
+        <div class="card h-100 shadow-sm border-0" style="border-radius: 1.25rem; background: linear-gradient(180deg, #ffffff 0%, #f6f2fc 100%);">
+          <div class="card-body d-flex flex-column">
+            <span class="badge rounded-pill mb-3 px-3 py-2" style="background-color: #542582; color: #fff; font-size: 0.85rem;">{{ offer.name }}</span>
+            <h5 class="card-title fw-bold" style="color: #3d2a62;">{{ offer.price }}</h5>
+            <p class="card-text text-muted mb-4" style="color: #625f74;">{{ offer.description }}</p>
+            <ul class="list-unstyled mb-4" style="color: #5f5b71;">
+              {% for item in offer.details %}
+                <li class="mb-2"><span class="me-2" style="color: #542582;">•</span>{{ item }}</li>
+              {% endfor %}
+            </ul>
+            <div class="mt-auto">
+              <a href="#" class="btn btn-primary w-100 rounded-pill">Activate</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

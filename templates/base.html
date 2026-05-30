@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Task Manager{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+    <style>
+      body {
+        background-color: #0f172a;
+        color: #e2e8f0;
+      }
+      .navbar-zain {
+        background-color: #111111;
+        padding: 0.75rem 0;
+        border-bottom: 4px solid #542582;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+      }
+      .glass-card {
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(10, 10, 18, 0.95));
+        border: 1px solid rgba(84, 37, 130, 0.18);
+        box-shadow: 0 25px 75px rgba(84, 37, 130, 0.16);
+        backdrop-filter: blur(18px);
+      }
+      .premium-card {
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(14, 14, 30, 0.96));
+        border: 1px solid rgba(84, 37, 130, 0.24);
+        box-shadow: 0 20px 60px rgba(84, 37, 130, 0.2);
+        backdrop-filter: blur(18px);
+      }
+      .premium-card .card-body {
+        padding: 1.5rem;
+      }
+      .card-header-premium {
+        border-bottom: 1px solid rgba(84, 37, 130, 0.18);
+        padding-bottom: 0.85rem;
+        margin-bottom: 1rem;
+        color: #e5e7eb;
+      }
+      .text-glow-purple {
+        color: #f8fafc;
+        text-shadow: 0 0 12px rgba(124, 84, 216, 0.35);
+      }
+      .form-control-dark,
+      .form-select-dark {
+        background: rgba(15, 23, 42, 0.88);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: #f8fafc;
+      }
+      .form-control-dark:focus,
+      .form-select-dark:focus {
+        background: rgba(15, 23, 42, 1);
+        color: #ffffff;
+        border-color: #542582;
+        box-shadow: 0 0 0 0.2rem rgba(84, 37, 130, 0.2);
+      }
+      .btn-primary {
+        background-color: #542582;
+        border-color: #542582;
+        color: #ffffff;
+      }
+      .btn-primary:hover,
+      .btn-primary:focus {
+        background-color: #43206f;
+        border-color: #43206f;
+      }
+      .badge-purple {
+        background-color: #7c54d8;
+        color: #ffffff;
+      }
+      .priority-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.35rem 0.8rem;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: #f8fafc;
+        box-shadow: 0 0 18px rgba(84, 37, 130, 0.24);
+      }
+      .priority-high { background: linear-gradient(135deg, #ff4d6d, #d62e87); }
+      .priority-medium { background: linear-gradient(135deg, #f5c142, #d582ff); }
+      .priority-low { background: linear-gradient(135deg, #4ade80, #22c55e); }
+      .text-muted {
+        color: #94a3b8 !important;
+      }
+      .btn-logout {
+        background: transparent;
+        color: #d1d1d1;
+        border: 1.5px solid #542582;
+        padding: 0.45rem 0.9rem;
+        border-radius: 0.6rem;
+        transition: background-color 0.14s ease, color 0.14s ease, transform 0.08s ease;
+      }
+      .btn-logout:hover {
+        background: #542582;
+        color: #ffffff;
+        transform: translateY(-2px);
+      }
+      .navbar-zain .navbar-brand,
+      .navbar-zain .nav-link {
+        color: #d1d1d1;
+      }
+      .navbar-zain .nav-link {
+        padding: 0.45rem 0.9rem;
+        margin: 0 0.15rem;
+        transition: background-color 0.12s ease, color 0.12s ease, transform 0.08s ease;
+        border-radius: 0.5rem;
+      }
+      .navbar-zain .nav-link:hover,
+      .navbar-zain .nav-link:focus {
+        color: #b47bff; /* bright purple on hover */
+        background: rgba(180,123,255,0.08);
+        text-decoration: none;
+        box-shadow: inset 0 0 0 1px rgba(180,123,255,0.15);
+      }
+      .navbar-zain .nav-link.active {
+        color: #ffffff;
+        background: rgba(84, 37, 130, 0.18);
+      }
+      .navbar-zain .navbar-brand {
+        font-weight: 800;
+        color: #ffffff;
+      }
+      .brand-wordmark {
+        font-weight: 900;
+        font-size: 1.05rem;
+        color: #ffffff;
+        letter-spacing: 0.6px;
+        text-transform: lowercase;
+        margin-right: 0.6rem;
+      }
+      .brand-logo-svg {
+        height: 28px;
+        width: auto;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 0.55rem;
+      }
+      .brand-title { vertical-align: middle; }
+      .brand-title {
+        color: rgba(255,255,255,0.9);
+        font-weight: 600;
+        font-size: 0.98rem;
+      }
+      .navbar-zain .nav-link i {
+        color: #ffffff;
+        font-size: 0.95rem;
+        vertical-align: text-bottom;
+      }
+      .btn-primary {
+        background-color: #542582;
+        border-color: #542582;
+      }
+      .btn-primary:hover,
+      .btn-primary:focus {
+        background-color: #3f1d6a;
+        border-color: #3f1d6a;
+      }
+      .alert {
+        border-radius: 0.85rem;
+      }
+      .navbar-zain .navbar-toggler {
+        border: none;
+        background: transparent;
+        color: #fff;
+      }
+      .btn-logout {
+        background: transparent;
+        color: #d1d1d1;
+        border: 1.5px solid #542582;
+        padding: 0.45rem 0.9rem;
+        border-radius: 0.6rem;
+        transition: background-color 0.14s ease, color 0.14s ease, transform 0.08s ease;
+      }
+      .btn-logout:hover {
+        background: #542582;
+        color: #ffffff;
+        transform: translateY(-2px);
+      }
+      .footer-premium {
+        background-color: #111111;
+        border-top: 2px solid #542582;
+        color: #cbd5e1;
+      }
+      .footer-premium p {
+        margin: 0;
+        color: #e2e8f0;
+        font-size: 0.95rem;
+      }
+      .flash-area {
+        margin: 0 auto 1rem;
+        max-width: 940px;
+        padding: 0 0.75rem;
+      }
+      .alert-premium {
+        background: rgba(84, 37, 130, 0.08);
+        border: 1px solid rgba(84, 37, 130, 0.2);
+        color: #e5e7eb;
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+        border-radius: 1rem;
+        padding: 0.95rem 1.1rem;
+        transition: opacity 0.45s ease, transform 0.45s ease;
+        opacity: 1;
+        transform: translateY(0);
+        animation: flashFadeIn 0.35s ease forwards;
+      }
+      .alert-premium.alert-success { border-left: 0.35rem solid #7c54d8; }
+      .alert-premium.alert-warning { border-left: 0.35rem solid #f5c142; }
+      .alert-premium.alert-danger { border-left: 0.35rem solid #ef4444; }
+      .alert-premium.alert-info { border-left: 0.35rem solid #3b82f6; }
+      .alert-premium.alert-fade-out {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      @keyframes flashFadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-zain mb-4">
+      <div class="container d-flex align-items-center">
+        <a class="navbar-brand d-flex align-items-center me-3" href="{{ url_for('dashboard') }}">
+          <svg class="brand-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 28" role="img" aria-label="zain">
+            <title>zain</title>
+            <text x="0" y="20" font-family="Segoe UI, Roboto, Arial, sans-serif" font-weight="800" font-size="20" fill="#ffffff">zain</text>
+          </svg>
+          <span class="brand-title">Task Manager</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#zainNavbar" aria-controls="zainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="zainNavbar">
+          <ul class="navbar-nav mx-auto">
+            {% if session.get('user_id') %}
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}"><i class="fa-solid fa-house me-2"></i>Dashboard</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('offers') }}"><i class="fa-solid fa-gift me-2"></i>Offers</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('team') }}"><i class="fa-solid fa-users me-2"></i>Team</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('analytics') }}"><i class="fa-solid fa-chart-line me-2"></i>Analytics</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}"><i class="fa-solid fa-user me-2"></i>Profile</a></li>
+            {% else %}
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}"><i class="fa-solid fa-right-to-bracket me-2"></i>Login</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}"><i class="fa-solid fa-user-plus me-2"></i>Register</a></li>
+            {% endif %}
+            {% if session.get('user_id') %}
+              <li class="nav-item d-lg-none mt-2"><a class="nav-link" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
+            {% endif %}
+            <li class="nav-item"><a class="nav-link" href="https://wa.me/249964723768" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp me-2"></i>Support</a></li>
+          </ul>
+        </div>
+
+        {% if session.get('user_id') %}
+          <div class="d-none d-lg-block ms-auto">
+            <a href="{{ url_for('logout') }}" class="btn btn-logout"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a>
+          </div>
+        {% endif %}
+      </div>
+    </nav>
+
+    <div class="flash-area">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div id="flash-messages">
+            {% for category, msg in messages %}
+              <div class="alert-premium alert alert-{{ 'danger' if category == 'error' else (category if category in ['success','info','warning'] else 'info') }}" role="alert">{{ msg }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+    </div>
+
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+
+    <footer class="footer-premium mt-5 py-4">
+      <div class="container text-center">
+        <p class="mb-0">© 2026 Zain Task Manager. Designed & Developed by Mishkat</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var flashContainer = document.getElementById('flash-messages');
+        if (!flashContainer) return;
+        var alerts = flashContainer.querySelectorAll('.alert-premium');
+        if (!alerts.length) return;
+
+        setTimeout(function() {
+          alerts.forEach(function(alert) {
+            alert.classList.add('alert-fade-out');
+          });
+        }, 3800);
+
+        setTimeout(function() {
+          flashContainer.style.display = 'none';
+        }, 4400);
+      });
+    </script>
+  </body>
+</html>

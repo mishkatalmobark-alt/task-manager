@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Analytics - Task Manager{% endblock %}
+
+{% block content %}
+  <div class="mb-4">
+    <h2 class="text-white">Analytics</h2>
+    <p class="text-muted">A quick overview of your task progress and productivity metrics.</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-12 col-md-4">
+      <div class="card glass-card p-4 h-100">
+        <h3 class="text-white mb-3">Total Tasks</h3>
+        <div class="d-flex align-items-end justify-content-between">
+          <div>
+            <p class="display-6 text-white mb-1">{{ stats.tasks_total }}</p>
+            <p class="text-muted mb-0">Tasks created so far.</p>
+          </div>
+          <i class="fa-solid fa-tasks fa-2x text-purple"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card glass-card p-4 h-100">
+        <h3 class="text-white mb-3">Completed</h3>
+        <div class="d-flex align-items-end justify-content-between">
+          <div>
+            <p class="display-6 text-white mb-1">{{ stats.tasks_completed }}</p>
+            <p class="text-muted mb-0">Tasks you have finished.</p>
+          </div>
+          <i class="fa-solid fa-check-circle fa-2x text-success"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4">
+      <div class="card glass-card p-4 h-100">
+        <h3 class="text-white mb-3">Pending</h3>
+        <div class="d-flex align-items-end justify-content-between">
+          <div>
+            <p class="display-6 text-white mb-1">{{ stats.tasks_pending }}</p>
+            <p class="text-muted mb-0">Tasks waiting to be completed.</p>
+          </div>
+          <i class="fa-solid fa-hourglass-half fa-2x text-warning"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

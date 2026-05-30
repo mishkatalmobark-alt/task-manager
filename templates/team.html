@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Team Directory - Task Manager{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2>Team Directory</h2>
+      <p class="mb-0 text-muted">Meet your internal team with quick access to roles and expertise.</p>
+    </div>
+    <a class="btn btn-secondary" href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+  </div>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+    {% for member in members %}
+      <div class="col">
+        <div class="card h-100 border-0 shadow-sm" style="border-radius: 1rem;">
+          <div class="card-body text-center">
+            <div class="avatar mb-3 d-inline-flex align-items-center justify-content-center rounded-circle text-white" style="width: 80px; height: 80px; background: linear-gradient(135deg, #6f43cd 0%, #8e63e8 100%); font-size: 2rem; font-weight: 700;">
+              {{ member.avatar }}
+            </div>
+            <h5 class="card-title mb-1">{{ member.name }}</h5>
+            <p class="card-text text-muted">{{ member.title }}</p>
+          </div>
+          <div class="card-footer bg-transparent border-0 text-center">
+            <span class="badge rounded-pill bg-purple text-white px-3 py-2">zaIn Team</span>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <style>
+    .bg-purple {
+      background-color: #542582 !important;
+    }
+    .card {
+      background: #ffffff;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      transition: transform 0.2s ease;
+    }
+  </style>
+{% endblock %}
